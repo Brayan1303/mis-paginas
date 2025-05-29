@@ -9,7 +9,7 @@
 *  [Constrcutura](Semana6/Construtora/index.html)
 *  [Formulario con estilo](Semana6/Formulario/formulario.html)
 *  [Menú vertical](Semana8/MenuV/tarea1.html)
-*  [Menú horizontal](Semana8/MenuV/tarea1.html)
+*  [Menú horizontal](Semana8/MenuH/tarea1.html)
 *  [Tambo - Vaquita feliz](Semana9/Ejercicio_Tambo_materiales/index.html)
 *  [Formularios mejorados](Semana10/formulario/form.html)
 *  [Bodegas El Racimo](Semana10/bodega/index.html)
