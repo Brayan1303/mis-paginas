@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, verdana;
+}
+
+
+header {
+    background-color: rgb(102, 4, 4);
+    color: white;
+    font-family: verdana;
+    text-align: center;
+}
+
+.custom-navbar {
+    background-color: rgb(102, 4, 4);
+    font-size: 18px;
+}
+
+.custom-navbar a{
+    color: white;
+    font-size: 20px;
+}
+
+.custom-navbar button{
+    color: white;
+}
+
+.nav-item{
+    border-radius: 12px;
+}
+
+.navbar-nav .nav-item:hover {
+    background-color: rgb(145, 20, 20);
+}
+
+.navbar-nav .nav-item:hover .nav-link {
+    color:white ;
+}
+
+main{
+    background-color: rgb(244, 188, 188);
+    color: rgb(102, 4, 4);
+}
+
+.custom-carousel {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.custom-carousel img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+footer {
+    background-color: rgb(102, 4, 4);
+    color: white;
+    text-align: center;
+    border: 12px solid rgb(102, 4, 4);
+}
+
+hr {
+    border: 1px solid rgb(102, 4, 4);
+}
