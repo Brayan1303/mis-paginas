@@ -1,0 +1,16 @@
+@font-face {
+    font-family: Mifuente;
+    src: url(./font/RockSalt-Regular.ttf);
+}
+
+#titulo{
+    text-align: center;
+    font-family: Mifuente;
+    color: blue;
+}
+
+.parrafos{
+    text-indent: 20px;
+    color: rgb(13, 13, 59);
+    font-family: 'Times New Roman', Times, serif;
+}

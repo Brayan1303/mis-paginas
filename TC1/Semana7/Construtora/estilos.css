@@ -1,0 +1,30 @@
+#Titulo{
+    background-color: rgb(102, 4, 4);
+    color: white;
+    font-family: verdana;
+    text-align: center;
+}
+
+#Navegador{
+    font-size: 18px;
+}
+
+.Secciones{
+    background-color: rgb(244, 188, 188);
+    color:  rgb(102, 4, 4);
+}
+
+.Titulos{
+    font-family: Verdana;
+}
+
+#Footer{
+    background-color: rgb(102, 4, 4);
+    color: white;
+    text-align: center;
+    border: 12px solid rgb(102, 4, 4);
+}
+
+#Footer{
+    border: 1px solid rgb(102, 4, 4);
+}

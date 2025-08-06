@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+header, nav, main, section, article, footer {
+    padding: 20px;
+}
+
+header {
+    background-color: rgb(107, 0, 107);
+    color: white;
+    text-align: center;
+}
+
+nav {
+    background-color: rgb(170, 0, 170);
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+}
+
+nav li{
+    width: 150px;
+    display: inline-block;
+}
+
+nav a {
+    padding: 10px;
+    display: block;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    background-color: rgb(107, 0, 107);
+}
+
+#servicios {
+    border-radius: 10px;
+    background-color:dimgrey;
+    color: white;
+}
+
+#productos {
+    margin-top: 10px;
+    background-color: mediumpurple;
+    color: black;
+    border-radius: 10px;
+}
+
+#contacto {
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: #dddddd;
+    color: black;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse:collapse;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+th, td {
+    border: 2px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+form {
+    border: 2px solid rgb(107, 0, 107);
+    padding: 30px;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+input, textarea {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #999;
+    border-radius: 5px;
+}
+
+.btn {
+    background-color: rgb(107, 0, 107);;
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: rgb(170, 0, 170);
+}
+
+footer {
+    background-color: rgb(107, 0, 107);;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+}
