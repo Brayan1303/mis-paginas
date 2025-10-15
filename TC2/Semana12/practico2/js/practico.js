@@ -50,7 +50,7 @@ function mostrarMaximas() {
         }
     }
 
-    $("#retornoMax").html(""); // limpiar
+    $("#retornoMax").html("");
     for (let i = 0; i < temperaturas.length; i++) {
         if (Number(temperaturas[i].TemperarutaActual) === maxTemp) {
             $("#retornoMax").append(
