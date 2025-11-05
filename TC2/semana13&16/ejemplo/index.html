@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            //Aquí irá todo lo que tiene que ver con la manipulación del documento.
+
+            $("#btnConsulta").on("click", function () {
+                try {
+                    var miciudad = $("#txtCiudad").val();
+                    var mipais = $("#sel_paises").val();
+
+                    if (!miciudad) {
+                        throw new Error("Favor de ingresar la ciudad");
+                    }
+                    if (!mipais) {
+                        throw new Error("Favor seleccione el país");
+                    }
+
+                    // Se ejecuta si esta todo bien:
+                    //Invoco API
+                    let apiKey = "su api key"
+                    var url = "http://api.openweathermap.org/data/2.5/weather/?appid=64767f11f55de5716a222f11621a8c98&lang=es&units=metric&q=" + miciudad + "," + mipais + "";
+                    //Permite hacer un request al servidor
+                    $.ajax({
+                        //url de la api
+                        url: url,
+                        //tipo de operacion
+                        type: "GET",
+                        //Tipo de dato que espero que me devuelva el servidor
+                        dataType: "json",
+                        //A la clave success le paso un funcion como parametro
+                        success: function (respuesta) {
+                            console.log(respuesta)
+                            $("#resultado_pronostico").html("[Ciudad: " + respuesta.name + "]<br><br>[Sensación térmica: " + respuesta.main.feels_like + "]<br><br>[Humedad: " + respuesta.main.humidity + "]<br><br>[Temperatura: " + respuesta.main.temp + " C°]<br><br>[Temperatura Mínima: " + respuesta.main.temp_min + " C° ]<br><br>[Temperatura Máxima: " + respuesta.main.temp_max + " C°]<br><br>[Tiempo: " + respuesta.weather[0].main + " (" + respuesta.weather[0].description + ")]");
+
+                            var icono = respuesta.weather[0].icon;
+
+                            var urlIcono = "http://openweathermap.com/img/w/" + icono + ".png"
+
+                            $("#resultado_pronostico").append("<p><img src=" + urlIcono + "></p>");
+                        },
+                        error: function (xml, status, error) {
+                            $("#resultado_pronostico").text(error);
+                        }
+                    });
+                } catch (e) {
+                    alert(e);
+
+                }
+
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <main>
+
+        <section>
+            <h1>Pron&oacute;stico diario</h1>
+
+
+            <label>Ciudad:
+                <input type="text" id="txtCiudad" placeholder="ciudad">
+            </label>
+            <br>
+            <br>
+            <label>Pa&iacute;s
+                <select name="sel_paises" id="sel_paises">
+                    <option value="">seleccione...</option>
+                    <option value="uy">Uruguay</option>
+                    <option value="ar">Argentina</option>
+                    <option value="br">Brasil</option>
+                </select>
+            </label>
+            <br>
+            <br>
+            <input type="button" id="btnConsulta" value="Consultar">
+        </section>
+
+        <section>
+            <h2>Respuesta del servidor</h2>
+            <p id="resultado_pronostico"></p>
+        </section>
+
+    </main>
+</body>
+
+</html>
