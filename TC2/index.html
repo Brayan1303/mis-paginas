@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Interactivo - AJAX</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f6f7fb;
+    color: #222;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #174fa4;
+  }
+  .question {
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .question h3 {
+    margin: 0 0 10px;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+  button {
+    display: block;
+    margin: 25px auto;
+    padding: 12px 25px;
+    background: #174fa4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #072466;
+  }
+  .correct { color: green; font-weight: bold; }
+  .incorrect { color: red; font-weight: bold; }
+  .result {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h1>🧠 Test Interactivo - AJAX</h1>
+
+<form id="quizForm"></form>
+<button type="button" onclick="checkAnswers()">Corregir</button>
+<div id="result" class="result"></div>
+
+<script>
+const preguntas = [
+  {q:"¿Qué significa AJAX?", o:["Asynchronous JavaScript and XML","Advanced JavaScript Application eXtension","Asynchronous JSON Application eXchange","Application JavaScript and XHTML"], c:0},
+  {q:"¿Cuál es el principal objetivo del uso de AJAX?", o:["Cargar páginas más grandes","Enviar y recibir datos sin recargar la página","Guardar archivos locales","Evitar errores de sintaxis"], c:1},
+  {q:"¿Qué objeto se usaba originalmente para implementar AJAX?", o:["JSONParser","XMLHttpRequest","AjaxHandler","FetchController"], c:1},
+  {q:"¿Qué formato de datos se usa comúnmente con AJAX en lugar de XML?", o:["CSV","HTML","JSON","TXT"], c:2},
+  {q:"¿Qué método de XMLHttpRequest se utiliza para inicializar una solicitud?", o:["open()","send()","init()","start()"], c:0},
+  {q:"¿Qué parámetro del método open() define si la solicitud es asincrónica?", o:["async","type","responseType","method"], c:0},
+  {q:"¿Qué propiedad indica si una solicitud AJAX terminó correctamente?", o:["responseStatus","readyState","responseCode","completeStatus"], c:1},
+  {q:"¿Qué valor de readyState indica que la respuesta está lista?", o:["0","1","2","4"], c:3},
+  {q:"¿Cuál es el código de estado HTTP que indica 'OK'?", o:["200","201","404","500"], c:0},
+  {q:"¿Qué método se utiliza para enviar la solicitud al servidor con XMLHttpRequest?", o:["execute()","transmit()","send()","deliver()"], c:2},
+  {q:"¿Qué propiedad de XMLHttpRequest contiene los datos devueltos por el servidor?", o:["responseText","data","result","output"], c:0},
+  {q:"¿Qué evento se usa para detectar cambios en el estado de una solicitud AJAX?", o:["onchange","onreadystatechange","onstatus","onloadend"], c:1},
+  {q:"¿Qué palabra clave indica una función asíncrona en JavaScript moderno?", o:["wait","async","promise","callback"], c:1},
+  {q:"¿Qué función se utiliza junto con async para esperar una promesa?", o:["waitFor()","await","sleep()","delay()"], c:1},
+  {q:"¿Cuál es la forma moderna y recomendada de hacer peticiones AJAX?", o:["XMLLoader","fetch()","sendRequest()","postData()"], c:1},
+  {q:"¿Qué tipo de valor devuelve fetch()?", o:["Objeto XMLHttpRequest","Promesa","Cadena","Array"], c:1},
+  {q:"¿Qué método se usa con fetch() para convertir la respuesta a JSON?", o:["parseJSON()","JSON()","json()","textToJSON()"], c:2},
+  {q:"¿Qué palabra clave permite manejar errores en funciones asíncronas?", o:["try...catch","if...else","switch","do...while"], c:0},
+  {q:"¿Qué propiedad de Response contiene el cuerpo de la respuesta?", o:["body","responseText","text","content"], c:0},
+  {q:"¿Qué método se usa con fetch() para enviar datos con método POST?", o:["fetch('url', {method: 'POST'})","fetchPOST('url')","post.fetch('url')","sendPost('url')"], c:0},
+  {q:"¿Qué cabecera HTTP se usa para indicar el tipo de contenido JSON?", o:["Accept-Type: text/plain","Content-Type: application/json","Data-Type: json/application","Content: json"], c:1},
+  {q:"¿Qué significa 'asíncrono' en el contexto de AJAX?", o:["Las operaciones se ejecutan al mismo tiempo","El navegador espera a que termine la solicitud","El código sigue ejecutándose sin esperar la respuesta","La solicitud bloquea toda la página"], c:2},
+  {q:"¿Cuál de las siguientes NO es una ventaja de usar AJAX?", o:["Interactividad mejorada","Reducción del tráfico de datos","Bloqueo total del navegador","Experiencia más fluida"], c:2},
+  {q:"¿Qué método de XMLHttpRequest permite agregar una cabecera personalizada?", o:["setRequestHeader()","addHeader()","headerSet()","sendHeader()"], c:0},
+  {q:"¿Qué tipo de archivo puede devolver un servidor a una solicitud AJAX?", o:["Solo XML","Cualquier tipo (JSON, HTML, texto, etc.)","Solo JSON","Solo texto plano"], c:1},
+  {q:"¿Qué hace response.json() dentro de fetch()?", o:["Envía datos al servidor","Convierte el cuerpo de la respuesta en objeto JSON","Inicia una nueva petición","Reinicia la conexión"], c:1},
+  {q:"¿Qué se usa en AJAX para manejar una respuesta exitosa con fetch()?", o:["then()","success()","response()","done()"], c:0},
+  {q:"¿Cómo se captura un error en fetch()?", o:["catch()","onerror()","errorHandler()","finally()"], c:0},
+  {q:"¿Qué estructura permite encadenar varios then() en fetch()?", o:["Promesas","Callbacks","Eventos","Variables globales"], c:0},
+  {q:"¿Qué función de JavaScript convierte un objeto en texto JSON?", o:["JSON.toString()","JSON.stringify()","JSON.parse()","JSON.encode()"], c:1},
+  {q:"¿Qué función convierte texto JSON en objeto JavaScript?", o:["JSON.load()","JSON.decode()","JSON.parse()","JSON.stringify()"], c:2},
+  {q:"¿Qué método HTTP se utiliza normalmente para obtener datos del servidor?", o:["GET","PUT","DELETE","OPTIONS"], c:0},
+  {q:"¿Qué método HTTP se usa para enviar datos al servidor?", o:["GET","POST","FETCH","SEND"], c:1},
+  {q:"¿Qué propiedad de fetch() define los datos que se enviarán?", o:["body","payload","data","info"], c:0},
+  {q:"¿Qué tipo de estructura puede representar una solicitud AJAX?", o:["Síncrona","Asíncrona","Mixta","Compleja"], c:1},
+  {q:"¿Qué se necesita en el servidor para responder a una solicitud AJAX?", o:["Un script que procese los datos (PHP, Node.js, etc.)","Un archivo HTML vacío","Un documento XML fijo","Un controlador de CSS"], c:0},
+  {q:"¿Qué valor tiene readyState cuando la solicitud está en progreso?", o:["2","3","4","5"], c:1},
+  {q:"¿Cuál es la función de onload en un objeto XMLHttpRequest?", o:["Ejecutar código al abrir la conexión","Ejecutar código cuando la respuesta se ha cargado por completo","Repetir la solicitud","Cancelar la solicitud"], c:1},
+  {q:"¿Qué indica un código de estado HTTP 404?", o:["Servidor no encontrado","Página no encontrada","Petición correcta","Acceso denegado"], c:1},
+  {q:"¿Qué indica un código de estado HTTP 500?", o:["Error del cliente","Error del servidor","Redireccionamiento","Solicitud exitosa"], c:1},
+];
+
+const form = document.getElementById("quizForm");
+preguntas.forEach((p, i) => {
+  const div = document.createElement("div");
+  div.classList.add("question");
+  div.innerHTML = `<h3>${i+1}. ${p.q}</h3>` +
+    p.o.map((opt, j) =>
+      `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`
+    ).join("");
+  form.appendChild(div);
+});
+
+function checkAnswers() {
+  let correct = 0;
+  preguntas.forEach((p, i) => {
+    const radios = document.getElementsByName("q"+i);
+    let selected = -1;
+    radios.forEach(r => { if (r.checked) selected = parseInt(r.value); });
+    const div = radios[0].closest(".question");
+    div.querySelectorAll("label").forEach((l, j) => {
+      l.classList.remove("correct","incorrect");
+      if (j === p.c && selected === p.c) {
+        l.classList.add("correct");
+      } else if (selected === j && selected !== p.c) {
+        l.classList.add("incorrect");
+      } else if (j === p.c) {
+        l.classList.add("correct");
+      }
+    });
+    if (selected === p.c) correct++;
+  });
+  const result = document.getElementById("result");
+  result.innerHTML = `✅ Obtuviste ${correct} / ${preguntas.length} correctas (${Math.round(correct / preguntas.length * 100)}%)`;
+}
+</script>
+
+</body>
+</html>
